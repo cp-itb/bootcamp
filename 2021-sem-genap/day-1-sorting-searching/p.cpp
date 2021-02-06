@@ -9,10 +9,6 @@
 #define LL long long
 using namespace std;
 
-bool cmp(string a, string b) {
-    return a + b < b + a;
-}
-
 int main () {
     //clock_t start = clock();
     ios_base::sync_with_stdio(false);
@@ -20,10 +16,13 @@ int main () {
     cout.tie(NULL);
     int n;
     cin >> n;
-    string a[n+5];
-    for (int i=1;i<=n;i++) cin >> a[i];
-    sort(a+1,a+n+1,cmp);
-    for (int i=1;i<=n;i++) cout << a[i];
+    int tot = 0;
+    for (int i=1;i<=n;i++) {
+        int x;
+        cin >> x;
+        tot += x;
+    }
+    cout << tot << endl;
     //cerr << fixed << setprecision(3) << (clock()-start)*1./CLOCKS_PER_SEC << endl;
     return 0;
 }
