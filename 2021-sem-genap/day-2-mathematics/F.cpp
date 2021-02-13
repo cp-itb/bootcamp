@@ -44,7 +44,7 @@ int main(){
     long long t, n, tot, k[1005];
     long long ans;
     cin >> t;
-    while(t>0){
+    for(int itr = 1; itr<=t; itr++){
         cin >> n;
         tot = 0;
         for(int i=0; i<n; i++){
@@ -58,8 +58,6 @@ int main(){
             ans = ans * modInverse(fac[tot-k[i]], mod) % mod;
             tot -= k[i];
         }
-        cout << ans << endl;
-        t--;
+        cout << "Case " << itr << ": " << ans << endl;
     }
 }
-
