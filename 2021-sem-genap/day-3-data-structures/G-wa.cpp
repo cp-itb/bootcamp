@@ -72,7 +72,7 @@ int main () {
         vector<int> answer;
         for (pii que : query) {
             if (que.fi == 1) {
-                answer.pb(ans[s[que.se] - 'A']);
+                answer.pb(sz[find_set(que.se)]);
             } else {
                 s[que.se] = p[que.se];
                 if (que.se >= 1 && s[que.se - 1] != '#' && s[que.se - 1] == s[que.se]) merge_set(que.se - 1, que.se);
