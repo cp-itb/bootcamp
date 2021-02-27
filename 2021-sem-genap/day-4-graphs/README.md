@@ -1,4 +1,4 @@
-# Day 3 - Data Structures
+# Day 4 - Graphs
 
 ## Materi
 - Graph Basic
