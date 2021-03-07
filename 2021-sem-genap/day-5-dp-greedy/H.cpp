@@ -39,7 +39,7 @@ int main () {
                 r = m - 1;
             }
         }
-        lis[l + 1] = ar[i];
+        lis[l + 1] = min(lis[l + 1], ar[i]);
     }
     int ans = 0;
     for (int i=1;i<=n;i++){
