@@ -1,4 +1,3 @@
-// prob: SPOJ RANGESUM
 #include <bits/stdc++.h>
 
 using namespace std;
