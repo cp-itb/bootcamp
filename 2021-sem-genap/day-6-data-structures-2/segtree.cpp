@@ -68,6 +68,11 @@ int main() {
         // query min[l..r]
         cout << get(1, 1, n, l, r) << '\n';
     }
+    // update
+    // int pos, val;
+    // cin >> pos >> val;
+    // update(1, 1, n, pos, val);
+    
 
     return 0;
 }

@@ -13,7 +13,7 @@ struct s {
 int n, q, block, ans = 0;
 int a[NMAX + 3];
 int m[VMAX + 3];
-int quer[QMAX + 3];
+int res[QMAX + 3];
 s v[QMAX + 3];
 
 bool cmpr(s a, s b) {
@@ -57,10 +57,10 @@ int main() {
         while (cl > x) add(--cl);
         while (cr <= y) add(cr++);
         while (cr > y + 1) remove(--cr);
-        quer[v[i].idx] = ans;
+        res[v[i].idx] = ans;
     }
     for (int i = 0; i < q; i++) {
-        cout << quer[i] << "\n";
+        cout << res[i] << "\n";
     }
     
     return 0;

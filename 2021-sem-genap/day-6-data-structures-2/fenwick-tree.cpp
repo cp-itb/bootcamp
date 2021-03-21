@@ -15,6 +15,7 @@ void add(int x, long long val) {
 }
 
 long long get(int x) {
+    // get sums from [1..x]
     long long ret = 0;
     for ( ; x > 0; x -= x & -x)
         ret += bit[x];
