@@ -10,7 +10,7 @@ int main(){
 	vector<int> ans(n, 1);
 	for (int i=0; i<n; i++){
 		for (int j=0; j<n; j++){
-			if (a[j] < a[i]) ans[i]++;
+			if (a[j] > a[i]) ans[i]++;
 		}
 	}
 	for (int i=0; i<n; i++) cout << ans[i] << (i == n-1 ? '\n' : ' ');

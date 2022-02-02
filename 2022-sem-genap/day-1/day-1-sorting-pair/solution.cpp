@@ -10,7 +10,7 @@ int main(){
 		cin >> a[i].first;
 		a[i].second = i;
 	}
-	sort(a.begin(), a.end());
+	sort(a.rbegin(), a.rend());
 	vector<int> ans(n);
 	for (int i=0; i<n; i++) ans[a[i].second] = i+1;
 	for (int i=0; i<n; i++) cout << ans[i] << (i == n-1 ? '\n' : ' ');
