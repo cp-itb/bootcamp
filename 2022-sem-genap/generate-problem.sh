@@ -2,6 +2,7 @@
 
 # Usage: bash generate-problem.sh <id> <problem-slug/folder-name> <problem-name> <time-limit> <memory-limit> <dest-folder>
 # bash generate-problem.sh permen seleksi-ieeextreme15-wibo-dan-permen "Wibo dan Permen" 2 128
+# fix error '\r': sed 's/\r$//' generate-problem.sh > generate-problem2.sh
 
 # read -p 'Probid: ' PROBID
 # read -p 'Problem folder name: ' PROBLEM_SLUG
