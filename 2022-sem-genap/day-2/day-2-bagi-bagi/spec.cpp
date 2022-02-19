@@ -74,6 +74,7 @@ protected:
 			CASE(n = rnd.nextInt(maxn/10, maxn), m = rnd.nextInt(maxm/10, maxm), randomArray(n, a, m));
 		}
 		CASE(n = maxn, m = maxm, a = vector<int>(n, 999769));
+		CASE(n = maxn, m = maxm, a = vector<int>(n, 1));
 	}
 
 private:
