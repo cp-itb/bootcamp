@@ -25,6 +25,6 @@ int main(){
 			}
 		}
 		ans = max(ans, tmp);
-	}
+	} // O(m sqrt(m))
 	cout << ans << '\n';
 }
