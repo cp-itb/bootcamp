@@ -1,8 +1,5 @@
 #include <bits/stdc++.h>
-
-//#include <ext/pb_ds/assoc_container.hpp>
 using namespace std;
-//using namespace __gnu_pbds;
 
 #define FOR(a, b) for (int i = (int) a; i < (int) b; i++)
 #define pb push_back
