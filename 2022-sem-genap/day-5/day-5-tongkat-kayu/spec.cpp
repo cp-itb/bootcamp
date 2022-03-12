@@ -2,56 +2,41 @@
 using namespace tcframe;
 using namespace std;
 
-#define MAXN 2e5
-#define MAXA 1e6
+#define MAXN 1e9
+#define MAXM 2e5
 
 class ProblemSpec: public BaseProblemSpec {
 protected:
-    int n,m, inc, rmq;
-    vector<int> a;
-    vector<vector<int>> lrv;
-    vector<int> ans;
+    int n,k,a,m;
+    vector<int> b;
+    int ans;
     void InputFormat() {
-        LINE(n);
-        LINE(a % SIZE(n));
+        LINE(n,k,a);
         LINE(m);
-        LINES(lrv) % SIZE(m);
+        LINE(b % SIZE(m));
     }
 
     void OutputFormat() {
-        LINES(ans) % SIZE(rmq);
+        LINE(ans);
     }
 
     void GradingConfig() {
-        TimeLimit(1.5);
+        TimeLimit(1);
         MemoryLimit(256);
     }
 
     void Constraints() {
-        CONS(1 <= n && n <= MAXN);
-        CONS(inRange(a));
-        CONS(1 <= m && m <= MAXN);
-        CONS(inRange2(lrv));
+        CONS(1<=n && n<=MAXN && 1<=k && k<=MAXN && 1<=a && a<=MAXN);
+        CONS(1ll*k*a <= n);
+        CONS(1<=m && m<=MAXM && m <= n-1);
+        CONS(inRange(b));
+        // syarat unik di TestSpec
     }
 
 private:
-    bool inRange(vector<int> a) {
-        for(int x: a) {
-            if(x<-1*MAXA || x>MAXA) return false;
-        }
-        return true;
-    }
-
-    bool inRange2(vector<vector<int>> lrv) {
-        for(vector<int> lrvi : lrv) {
-            if(lrvi.size()==3) {
-                if(lrvi[0]<0 || lrvi[0]>n-1) return false;
-                if(lrvi[1]<0 || lrvi[1]>n-1) return false;
-                if(lrvi[2]<-1*MAXA || lrvi[2]>MAXA) return false;
-            } else if(lrvi.size()==2) {
-                if(lrvi[0]<0 || lrvi[0]>n-1) return false;
-                if(lrvi[1]<0 || lrvi[1]>n-1) return false;
-            }
+    bool inRange(vector<int> b) {
+        for(int x: b) {
+            if(x<1 || x>n-1) return false;
         }
         return true;
     }
@@ -60,84 +45,65 @@ private:
 class TestSpec: public BaseTestSpec<ProblemSpec> {
 protected:
     void SampleTestCase1() {
-        Input({
-            "4",
-            "1 2 3 4",
-            "4",
-            "3 0",
-            "3 0 -1",
-            "0 1",
-            "2 1"            
+        Input( {
+            "10 3 3",
+            "5",
+            "3 7 5 1 9"
         });
         Output({
-            "1",
-            "0",
-            "0"
+            "2"
         });
     }
 
     void SampleTestCase2() {
-        Input({
-            "2",
-            "-1 -1",
-            "9",
-            "0 0",
-            "0 0 4",
-            "0 0",
-            "1 1",
-            "0 0 -2",
-            "0 0 0",
-            "0 0 7",
-            "0 0 -4",
-            "0 0"          
+        Input( {
+            "5 5 1",
+            "4",
+            "4 3 1 2"
         });
-        Output( {
-            "-1",
-            "3",
-            "-1",
+        Output({
             "4"
         });
     }
 
+    void SampleTestCase3() {
+        Input({
+            "5 1 4",
+            "1",
+            "2"
+        });
+        Output({
+            "0"
+        });
+    }
     void BeforeTestCase() {
-        a.clear();
-        lrv.clear();
+        b.clear();
     }
 
     void TestCases() {
         // isi 20 testcase.
-        CASE(n=1, a={-1}, inc=rnd.nextInt(1,5), rmq=rnd.nextInt(1,5), m=inc+rmq, randomOp(inc, rmq, lrv));
-        for(int i=0;i<9;i++) {
-            CASE(n=100, randomArray(n, a), inc=rnd.nextInt(1,100), rmq=rnd.nextInt(1,100), m=inc+rmq, randomOp(inc, rmq, lrv));
+        for(int i=0;i<10;i++) {
+            CASE(n=10, k=rnd.nextInt(1,n), a=rnd.nextInt(1,n/k), m=rnd.nextInt(1,n-1), randomUniqueArray(m, b));
         }
-        for(int i=0;i<9;i++) {
-            CASE(n=MAXN/2, randomArray(n,a), inc=rnd.nextInt(1,MAXN/2), rmq=MAXN-inc, m=inc+rmq, randomOp(inc, rmq, lrv));
+        for(int i=0;i<5;i++) {
+            CASE(n = MAXM+1, k=rnd.nextInt(1,n), a=rnd.nextInt(1,n/k), m=MAXM, randomUniqueArray(m,b));
         }
-        CASE(n=MAXN, randomArray(n,a), inc=rnd.nextInt(1,MAXN/2), rmq=MAXN-inc, m=inc+rmq, randomOp(inc, rmq, lrv));
+        for(int i=0;i<5;i++) {
+            CASE(n = MAXN, k=rnd.nextInt(1,1000), a=rnd.nextInt((n-MAXM)/k,n/k), m=MAXM, randomUniqueArray(m, b));
+        }
     }
 private:
-    void randomOp(int inc, int rmq, vector<vector<int>> &lrv) {
-        while(inc>0 && rmq>0) {
-            if(rnd.nextInt(0,1)) {
-                inc--;
-                lrv.push_back({rnd.nextInt(0,n-1), rnd.nextInt(0,n-1), rnd.nextInt(-1*MAXA,MAXA)});
-            } else {
-                rmq--;
-                lrv.push_back({rnd.nextInt(0,n-1), rnd.nextInt(0,n-1)});
+    void randomUniqueArray(int m, vector<int> &b) {
+        set<int> s;
+        for(int i=0;i<m;i++) {
+            while(true) {
+                int x = rnd.nextInt(1, m);
+                if(s.find(x)==s.end()) {
+                    b.push_back(x);
+                    s.insert(x);
+                    break;
+                }
             }
-        }
-        while(inc>0) {
-            inc--;
-            lrv.push_back({rnd.nextInt(0,n-1), rnd.nextInt(0,n-1), rnd.nextInt(-1*MAXA,MAXA)});
-        }
-        while(rmq>0) {
-            rmq--;
-            lrv.push_back({rnd.nextInt(0,n-1), rnd.nextInt(0,n-1)});
-        }
-    }
-    void randomArray(int n, vector<int> &a) {
-        for(int i=0;i<n;i++) {
-            a.push_back(rnd.nextInt(-1*MAXA,MAXA));
         }
     }
 };
