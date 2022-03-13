@@ -8,7 +8,8 @@ using namespace std;
 class ProblemSpec: public BaseProblemSpec {
 protected:
     int n;
-    vector<int> a, ans;
+    vector<int> a;
+    vector<string> ans;
     void InputFormat() {
         LINE(n);
         LINE(a % SIZE(n));
@@ -19,7 +20,7 @@ protected:
     }
 
     void GradingConfig() {
-        TimeLimit(1.5);
+        TimeLimit(1);
         MemoryLimit(256);
     }
 
